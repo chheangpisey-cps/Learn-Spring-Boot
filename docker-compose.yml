@@ -1,0 +1,6 @@
+version: "3.8"
+
+services:
+  my-application:
+    environment:
+      DB_URL: localhost:3101/cps
