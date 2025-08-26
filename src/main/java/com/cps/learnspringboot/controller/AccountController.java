@@ -1,5 +1,6 @@
 package com.cps.learnspringboot.controller;
 
+import com.cps.learnspringboot.annotations.AuditFilter;
 import com.cps.learnspringboot.controller.request.AccountCreateRequest;
 import com.cps.learnspringboot.repository.entity.AccountEntity;
 import com.cps.learnspringboot.services.AccountService;
@@ -23,6 +24,7 @@ public class AccountController {
         return ResponseEntity.ok().body(result);
     }
 
+    @AuditFilter()
     @GetMapping
     public ResponseEntity<Page<AccountEntity>> getAccount() {
         final var result = accountService.findAll();
