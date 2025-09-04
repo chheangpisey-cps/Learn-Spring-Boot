@@ -1,5 +1,6 @@
 package com.cps.learnspringboot.services.implementation;
 
+import com.cps.learnspringboot.controller.exception.ApiErrorException;
 import com.cps.learnspringboot.controller.exception.ResourceNotFoundException;
 import com.cps.learnspringboot.controller.request.AccountCreateRequest;
 import com.cps.learnspringboot.repository.AccountRepository;
@@ -17,6 +18,16 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImp implements AccountService {
 
     private final AccountRepository accountRepository;
+
+    @Override
+    public AccountEntity createAccount(AccountEntity request) {
+        return accountRepository.save(request);
+    }
+
+    @Override
+    public AccountEntity getAccountDetail(Long id) {
+        return accountRepository.findById(id).orElseThrow(() -> new ApiErrorException(404, "Account not found"));
+    }
 
     @Override
     public AccountEntity saveAccount(AccountEntity accountEntity) {

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -24,12 +25,16 @@ public class AccountEntity {
     private String accountType;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+    @Column(name = "balance")
+    private BigDecimal balance;
     // Constructors
     public AccountEntity() {}
-    public AccountEntity(String accountNumber, String accountHolderName, String accountType) {
+    public AccountEntity(Long id, String accountNumber, String accountHolderName, String accountType, BigDecimal balance) {
+        this.id = id;
         this.accountNumber = accountNumber;
         this.accountHolderName = accountHolderName;
         this.accountType = accountType;
+        this.balance = balance;
     }
     @PrePersist
     protected void onCreate() {
@@ -40,6 +45,7 @@ public class AccountEntity {
         account.accountNumber = updatedAccount.getAccountNumber();
         account.accountHolderName = updatedAccount.getAccountHolderName();
         account.accountType = updatedAccount.getAccountType();
+        account.balance = updatedAccount.getBalance();
     }
 
     public void setId(Long id) { this.id = id; }
@@ -49,5 +55,6 @@ public class AccountEntity {
     public void setAccountHolderName(String accountHolderName) { this.accountHolderName = accountHolderName; }
 
     public void setAccountType(String accountType) { this.accountType = accountType; }
+    public void setAccountBalance(BigDecimal banlance) { this.balance = banlance; }
 
 }
